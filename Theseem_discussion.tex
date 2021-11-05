@@ -12,6 +12,9 @@
 % Special link
 \def\linkcomment{https://github.com/phantomachine/discussion_VAR-LKA}
 
+% Special math symbol
+\def\cc{\circledcirc}
+
 \usepackage{babel}
 \usepackage{float}
 \usepackage{booktabs}
@@ -221,19 +224,60 @@
 \begin{frame}{What do the authors do?}
   \begin{enumerate}
     % \item Authors study Sri Lanka's macroconomy from a VAR lens.
-    \item Growth-rate of key variables (*except): 
-      \begin{itemize}
-        \item \textbf{O}il \textbf{P}rice, 
-        \item \textbf{F}ed \textbf{F}unds \textbf{R}ate,* 
-        \item \textbf{F}orex \textbf{E}xchange \textbf{R}eserves, 
-        \item \textbf{Y} real GDP,
-        \item \textbf{INF}lation (CPI),*
-        \item \textbf{M1},
-        \item \textbf{INT}erest rate (money market)*
-        \item \textbf{CR}edit to private sector from commercial banks,
-        \item \textbf{R}eal \textbf{E}xchange \textbf{R}ate.
-      \end{itemize}
+    % \item Growth-rate of key variables (*except): 
+    %   \begin{itemize}
+    %     \item \textbf{O}il \textbf{P}rice, 
+    %     \item \textbf{F}ed \textbf{F}unds \textbf{R}ate,* 
+    %     \item \textbf{F}orex \textbf{E}xchange \textbf{R}eserves, 
+    %     \item \textbf{Y} real GDP,
+    %     \item \textbf{INF}lation (CPI),*
+    %     \item \textbf{M1},
+    %     \item \textbf{INT}erest rate (money market)*
+    %     \item \textbf{CR}edit to private sector from commercial banks,
+    %     \item \textbf{R}eal \textbf{E}xchange \textbf{R}ate.
+    %   \end{itemize}
     \item VAR($p$), $p=2$, linear trend, constant, peace dummy (mid 2009--).
+    
+      \begin{equation*}
+        \begin{pmatrix}
+          {\color{magenta}1}   & & & & & & & &
+          \\
+          {\color{magenta}\cc} & {\color{magenta}1} & & & & & & &
+          \\
+          \cc & \cc & 1 & & & & & &
+          \\
+          \cc & \cc & \cc & 1 & & & & & 
+          \\
+          \cc & \cc & \cc & \cc & 1 & & & & 
+          \\
+          \cc & \cc & \cc & \cc & \cc & 1 & & & 
+          \\
+          \cc & \cc & \cc & \cc & \cc & \cc & 1 & &
+          \\
+          \cc & \cc & \cc & \cc & \cc & \cc & \cc & 1 &
+          \\
+          \cc & \cc & \cc & \cc & \cc & \cc & \cc & \cc & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+          {\color{magenta}\Delta P_{t}^{oil}}
+        \\ 
+        {\color{magenta}i_{t}^{Fed}}
+        \\
+        \Delta FER_{t}
+        \\
+        \Delta Y_{t}^{gdp}
+        \\
+        \Delta P_{t}^{cpi} 
+        \\
+        \Delta M_{t}^{M1} 
+        \\
+        i_{t}^{mm,lka} 
+        \\
+        \Delta CR_{t} 
+        \\
+        \Delta RER_{t}
+        \end{pmatrix}  
+      \end{equation*}
     \item Data: 1996-Q1 to 2019-Q4.
     \item Study \textbf{MP} transmission:
       \begin{itemize}
@@ -246,9 +290,18 @@
 
 
 %% ============================================================================
-\begin{frame}{Contribution and Claimed insights}
+\begin{frame}{Contribution and Claimed Insights}
 
-  Interesting question: Pre-/post-war nature of MP transmission. Has MP become better?
+  \begin{block}{Interesting question!}
+    Pre-/post-war nature of MP transmission. 
+    \bigskip
+    
+    \hfill Has MP become ``better'' or ``more effective''?
+  \end{block}
+  
+  \bigskip
+
+  \bigskip
 
   \begin{enumerate}
     \item (\textbf{MP}) has ``expected'' dynamic multiplier effects on real economy. Importance of \textbf{Cr}edit and \textbf{Ex}change-rate channels in \textbf{MP} tranmission.
@@ -285,18 +338,26 @@
 \begin{frame}{Comment 1: MP shock and transmission}
 
   \begin{enumerate}
-    \item What is the monetary policy (instrument) said to be identified in the VAR?
-    \begin{itemize}
-        \item Nowhere defined/discussed in the paper. Turns out to be \textbf{INT} (money-market interest rate). Reader inferred from Figure 1 (impulse responses).
-        
-        \item Problem is that Figure 1 impulse responses are mostly ``insignificant'' (not statistically different from zero). Exception: output, M1, RER.
-        
-        \item Are these IRF bands asymptotic bands? Tried boostrapping these given small-sample size problem?
+    \item What is the \emph{independent component} of monetary policy said to be identified in the VAR?
+      \begin{itemize}
+        \item Turns out to be \textbf{INT} $:= i^{mm,lka}$ (money-market interest rate). Inferred from Figure 1. 
+        \item \textbf{Suggestion}: Please spell out precisely from outset. Also, explain more how monetary policy shift can be disentangled from ``demand-side'' shifts---both underlie observed movements in \textbf{INT}.
       \end{itemize}
 
-    \item Claimed: \textbf{CR} and \textbf{RER} have more persistent responses to MP shock imply that the ``credit'' and ``exchange-rate'' channels are important to MP. Why? If anything, the rest of the variables do not respond to MP shock $\Rightarrow$ MP is not effective in stimulating the domestic economy?
+      \bigskip
 
-    
+    \item Figure 1: Most impulse responses are no different from zero (statistically). Exception: output, M1, RER. 
+      \begin{itemize}  
+        \item \textbf{Suggestion}: Are these IRF bands asymptotic bands? Try boostrapping these given small-sample size.
+      \end{itemize}
+
+      \bigskip
+
+    \item Claimed: More persistent \textbf{CR} ($\Delta CR$) and \textbf{RER} ($\Delta RER)$ responses to MP shock imply that the ``credit'' and ``exchange-rate'' channels are important to MP. 
+      \begin{itemize}  
+        \item Why? (Contradictory evidence in Figure 1.)
+        \item \textbf{Suggestion}: If domestic variables do not respond to MP shifts, then isn't MP not effective in stimulating the domestic economy? Need to explain this.
+      \end{itemize}
   \end{enumerate}
 
 \end{frame}
@@ -310,16 +371,18 @@
 %% ============================================================================
 \begin{frame}{Comment 2: Pre-/post-war MP transmission}
 
-  Post war: IRFs (given MP shock) decay slower and have larger magnitudes.
+  Post war (mid-2009): IRFs (given MP shock) decay slower and have larger magnitudes.
     \begin{itemize}
       \item Relative pre-/post-war comparison limited to Table 2 (point estimates).
-      \item Suggest to plot these. Also show IRF error bands!
+      \item \textbf{Suggestion}: Plot these. Also show IRF error bands.
     \end{itemize}  
+
+    \bigskip
 
   Stronger post-war effect of MP shock:
     \begin{itemize}
-      \item Is this somehow related CBSL's declining ability to defend its currency? See figures next ... 
-      \item Would be interesting if authors can pursue this and tell us more: how and why.
+      \item Is this related to CBSL's declining ability to defend its currency? See figures next ... 
+      \item \textbf{Suggestion}: Would be interesting if authors can pursue this and tell us more: how and why.
     \end{itemize}
 
 \end{frame}
@@ -347,7 +410,7 @@
   \framesubtitle{Post 2009: CBSL's rising liability against FER asset ...}
   \includegraphics[width=0.95\textwidth]{figures/M0-to-totalreserves.png} 
   \begin{center}
-    MO / Total Reserves
+    M0 / Total Reserves
   \end{center}
 \end{frame}
 
@@ -355,12 +418,12 @@
   From CBSL's operations and news commentaries, CBSL official interest-rate corridor policy seems to be tempered by \textbf{FER} (forex reserves management).
 
   \bigskip
-  Suggestion: Focus on this aspect of policy?
+
+  \textbf{Suggestion}: Focus on this aspect of policy?
     \begin{itemize}
-      \item 
       \item How to separately identify structural \textbf{INT} variations in the presence of potential \textbf{FER} management?
       \item Is merely ``chucking'' in \textbf{FER} sufficient for identifying policy variations hidden in observed \textbf{INT} outcomes?
-      \item Given current setup ... Suggestion: Order \textbf{FER} then \textbf{INT} lowest in the "triangle"?
+      \item Order \textbf{FER} then \textbf{INT} lowest in the "triangle"?
     \end{itemize}
 \end{frame}
 
@@ -369,16 +432,16 @@
 \begin{frame}{Comment 3: "Credit channel"}
 
   Positive shock to lending (\textbf{CR})
-    \begin{itemize}
+    \begin{enumerate}
         \item Claimed: raises output and inflation
         \item Comment: But all these IRFs are statistically no different from zero.
-        \item What really is ``credit channel''? Is a shock to \textbf{CR} a supply-side (lender) or a demand-side shock? Here, it seems to be both since \textbf{CR} only measures observed lending and borrowing. Do they have different MP implications? If so, do we need to separately identify a lending-side shock in line with authors' intention?
-        \item Suggestion: 
         \begin{itemize}
-          \item Is modelling the economy in a growth-rates VAR appropriate? E.g., a shock to \textbf{INT} would actually be a shock to the \emph{acceleration} of monetary policy rate. 
-          \item Have authors tried a VECM with mixture of I(0) and I(1) variables? \citet{phillips1995}; \citet{chang-phillips1995}.
+          \item What really is ``credit channel''? 
+          \item Is a shock to \textbf{CR} a supply-side (lender) or a demand-side shock? 
+          \item Seems to be both since \textbf{CR} only measures observed lending and borrowing. 
+          \item Do they have different MP implications? If so, do we need to separately identify a lending-side shock in line with authors' intention?
         \end{itemize}
-    \end{itemize}  
+    \end{enumerate}  
 \end{frame}
 
 %% ============================================================================
@@ -387,21 +450,44 @@
 \end{frame}
 
 %% ============================================================================
-\begin{frame}{Comment 4: Real trade sector?}
+\begin{frame}{Comment 4: Real trade sector and FDI?}
   
   Sri Lanka has been heavily dependant on tourism, trade and FDI. 
   \bigskip
 
-  Suggest to include
-  \begin{itemize}
-    \item FDI
-    \item Current/capital account elements
-  \end{itemize}
+  \textbf{Suggestion}: Include
+    \begin{itemize}
+      \item FDI
+      \item Current/capital account elements
+    \end{itemize}
 
 \end{frame}
 
 %% ============================================================================
-\begin{frame}{Comment 5: Miscellany}
+\begin{frame}{Comment 5: VECM or Use More Theory!}
+
+  Is modelling the economy in a growth-rates VAR appropriate? 
+
+  \bigskip
+
+  \textbf{Suggestion}: 
+    \begin{itemize}
+      \item Have authors tried a VECM with mixture of I(0) and I(1) variables? 
+      \begin{itemize}
+        \item \citet{phillips1995}
+        \item \citet{chang-phillips1995}
+      \end{itemize}
+      
+      \item Be wary of claims of ``structural shock identification'' in VARs:
+        \begin{itemize}
+          \item \citet{uhlig2017}
+          \item \citet{yao-kam-vahid2017}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+%% ============================================================================
+\begin{frame}{Comment 6: Miscellany}
   Please check:
   \begin{itemize}
     \item Spelling
